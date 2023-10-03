@@ -8,8 +8,7 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RestaurantRegistrationController;
 use Illuminate\Support\Facades\Route;
@@ -25,10 +24,6 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get("/", [HomeController::class, "index"])->name("home");
-Route::get("/category-details/{slug}", [HomeController::class, "categoryDetails"])->name("category.details");
-Route::get("/post-details/{slug}", [HomeController::class, "postDetails"])->name("post.details");
-Route::get("/post/search", [HomeController::class, "postSearch"])->name("post.search");
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login/post', [LoginController::class, 'loginPost'])->name('login.post');
 
@@ -43,12 +38,16 @@ Route::get('/restaurant/registration', [RestaurantRegistrationController::class,
 
 Route::post('/restaurant/registration/post', [RestaurantRegistrationController::class, 'doRegistration'])->name('restaurant.registration.post');
 
-Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
+Route::group(["prefix" => "admin", 'middleware' => ['auth', "check.admin"]], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 
+    Route::get('/restaurant/list', [RestaurantController::class, 'list'])->name('restaurant.list');
+    // restaurant approve
+    Route::get('/restaurant/approve/{id}', [RestaurantController::class, 'approve'])->name('restaurant.approve');
+    Route::get('/restaurant/reject/{id}', [RestaurantController::class, 'reject'])->name('restaurant.reject');
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', [UserController::class, 'list'])->name('user.list');
         Route::get('/view/{id}', [UserController::class, 'view'])->name('user.profile');
@@ -77,13 +76,12 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
     });
 
     Route::resource("categories", CategoryController::class);
-    Route::resource("posts", PostController::class);
 
 });
 
-Route::group(["prefix" => "restaurant", "middleware" => ["auth:restaurants"]], function () {
+Route::group(["prefix" => "restaurant", "middleware" => ["auth:restaurants", "check.restaurant"]], function () {
     Route::get('/', [RestaurantController::class, "dashboard"])->name("restaurant.dashboard");
     Route::get('/logout', [LoginController::class, 'logout'])->name('restaurant.logout');
     Route::resource("categories", CategoryController::class);
-
+    Route::get("/orders", [OrderController::class, "index"])->name("restaurant.orders");
 });

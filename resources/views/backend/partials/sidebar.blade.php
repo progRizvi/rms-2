@@ -11,7 +11,7 @@
             </a>
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <nav class="mt-5 flex-1 px-2 bg-white">
-                <a href="{{ route('admin.dashboard') }}"
+                <a href="{{ auth()->user() ? route('admin.dashboard') : route('restaurant.dashboard') }}"
                     class=" group flex items-center px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none  transition ease-in-out duration-150">
                     <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800 group-focus:text-gray-100 transition ease-in-out duration-150"
                         stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -20,6 +20,18 @@
                     </svg>
                     Dashboard
                 </a>
+                @if (auth()->user())
+                    <a href="{{ route('restaurant.list') }}"
+                        class=" group flex items-center px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none  transition ease-in-out duration-150">
+                        <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800 group-focus:text-gray-100 transition ease-in-out duration-150"
+                            stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h3a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h3a1 1 0 001-1V10M9 21h6" />
+                        </svg>
+                        Restaurant List
+                    </a>
+                @endif
+
                 @if (auth('restaurants')->user())
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
@@ -34,7 +46,7 @@
 
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
-                        <li class="list-none"><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Orders
+                        <li class="list-none"><a href="{{ route('restaurant.orders') }}" class="block py-2 ml-3">Orders
                                 List</a></li>
                     </div>
                 @endif

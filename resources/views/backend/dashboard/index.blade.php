@@ -6,15 +6,14 @@
     <div class="flex items-center justify-center">
         <div class="p-4 rounded w-full">
             <div class="md:grid md:grid-cols-3 md:gap-4 lg:grid-cols-3 space-y-4 md:space-y-0 mt-4 lg:gap-8">
-                <a href="{{ route('posts.index') }}">
+                <a href="{{ route('restaurant.list') }}">
                     <div class="shadow-md bg-white rounded-lg h-36">
                         <div class="flex items-center justify-between  p-8">
-
                             <div class="space-y-4">
-                                <p class="text-gray-500 text-xl font-semibold">Total Post</p>
+                                <p class="text-gray-500 text-xl font-semibold"> Total Restaurant</p>
                                 <div class="flex items-baseline space-x-4">
                                     <h2 class="text-2xl font-semibold">
-                                        {{ $data['total_posts'] }}
+                                        {{ $data['total_restaurant'] }}
                                     </h2>
                                 </div>
                             </div>
@@ -89,10 +88,10 @@
 
     </div>
     <!--
-                    <div class="shadow-lg rounded-lg overflow-hidden bg-white mx-4 my-4 w-[50%]">
+                                    <div class="shadow-lg rounded-lg overflow-hidden bg-white mx-4 my-4 w-[50%]">
 
-                      <canvas class="p-10" id="chartPie"></canvas>
-                    </div> -->
+                                      <canvas class="p-10" id="chartPie"></canvas>
+                                    </div> -->
     {{--   <div class="shadow-lg rounded-lg overflow-hidden bg-white mx-4  my-4"> --}}
 
     {{--  <canvas class="p-10 h-full" id="chartBar"></canvas> --}}
