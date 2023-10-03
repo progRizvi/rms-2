@@ -20,29 +20,24 @@
                     </svg>
                     Dashboard
                 </a>
-                <div
-                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
-                    <span class="pl-4">
-                        Category
-                    </span>
-                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
-                        <li><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Category List</a></li>
-                        <li><a href="{{ route('categories.create') }}" class="block py-2 ml-3">Add Category</a></li>
-                        <li><a href="#" class="block py-2 ml-3">Meta Description</a></li>
-                    </ul>
-                </div>
+                @if (auth('restaurants')->user())
+                    <div
+                        class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                        <span class="pl-4">
+                            Category
+                        </span>
+                        <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                            <li><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Category List</a></li>
+                            <li><a href="{{ route('categories.create') }}" class="block py-2 ml-3">Add Category</a></li>
+                        </ul>
+                    </div>
 
-                <div
-                    class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
-                    <span class="pl-4">
-                        Post
-                    </span>
-                    <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
-                        <li><a href="{{ route('posts.index') }}" class="block py-2 ml-3">Posts</a></li>
-                        <li><a href="{{ route('posts.create') }}" class="block py-2 ml-3">Add Post</a></li>
-                        <li><a href="#" class="block py-2 ml-3">Show Post</a></li>
-                    </ul>
-                </div>
+                    <div
+                        class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                        <li class="list-none"><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Orders
+                                List</a></li>
+                    </div>
+                @endif
                 <div class="relative">
                     <li
                         class=" mt-1 group flex items-center justify-between px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none  transition ease-in-out duration-150">
@@ -57,66 +52,7 @@
                             </svg>
                             Settings
                         </div>
-
                     </li>
-                    <div class="ml-5">
-                        @if (hasAnyPermissions('role.list'))
-                            <a href="{{ route('role.list') }}"
-                                class=" mt-1 {{ isRouteActive('role*') }} group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none  transition ease-in-out duration-150">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mr-3 h-6 w-6" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M17 14v6m-3-3h6M6 10h2a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2zm10 0h2a2 2 0 002-2V6a2 2 0 00-2-2h-2a2 2 0 00-2 2v2a2 2 0 002 2zM6 20h2a2 2 0 002-2v-2a2 2 0 00-2-2H6a2 2 0 00-2 2v2a2 2 0 002 2z" />
-                                </svg>
-                                Role
-                            </a>
-                        @endif
-                        @if (hasAnyPermissions('user.list'))
-                            <a href="{{ route('user.list') }}"
-                                class=" mt-1  {{ isRouteActive('user*') }} group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:text-white  transition ease-in-out duration-150">
-                                <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800  transition ease-in-out duration-150"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36"
-                                    height="36">
-                                    <path fill="none" d="M0 0h24v24H0z" />
-                                    <path
-                                        d="M4 22a8 8 0 1 1 16 0h-2a6 6 0 1 0-12 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6zm0-2c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"
-                                        fill="currentColor" />
-                                </svg>
-                                User
-                            </a>
-                        @endif
-
-
-
-                        @if (hasAnyPermissions('settings'))
-                            <a href="{{ route('settings') }}"
-                                class=" mt-1 {{ isRouteActive('settings*') }}   group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none  transition ease-in-out duration-150">
-                                <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800  transition ease-in-out duration-150"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
-                                    height="24">
-                                    <path fill="none" d="M0 0h24v24H0z" />
-                                    <path
-                                        d="M3.34 17a10.018 10.018 0 0 1-.978-2.326 3 3 0 0 0 .002-5.347A9.99 9.99 0 0 1 4.865 4.99a3 3 0 0 0 4.631-2.674 9.99 9.99 0 0 1 5.007.002 3 3 0 0 0 4.632 2.672c.579.59 1.093 1.261 1.525 2.01.433.749.757 1.53.978 2.326a3 3 0 0 0-.002 5.347 9.99 9.99 0 0 1-2.501 4.337 3 3 0 0 0-4.631 2.674 9.99 9.99 0 0 1-5.007-.002 3 3 0 0 0-4.632-2.672A10.018 10.018 0 0 1 3.34 17zm5.66.196a4.993 4.993 0 0 1 2.25 2.77c.499.047 1 .048 1.499.001A4.993 4.993 0 0 1 15 17.197a4.993 4.993 0 0 1 3.525-.565c.29-.408.54-.843.748-1.298A4.993 4.993 0 0 1 18 12c0-1.26.47-2.437 1.273-3.334a8.126 8.126 0 0 0-.75-1.298A4.993 4.993 0 0 1 15 6.804a4.993 4.993 0 0 1-2.25-2.77c-.499-.047-1-.048-1.499-.001A4.993 4.993 0 0 1 9 6.803a4.993 4.993 0 0 1-3.525.565 7.99 7.99 0 0 0-.748 1.298A4.993 4.993 0 0 1 6 12c0 1.26-.47 2.437-1.273 3.334a8.126 8.126 0 0 0 .75 1.298A4.993 4.993 0 0 1 9 17.196zM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-2a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-                                </svg>
-
-                                Business Settings
-                            </a>
-                        @endif
-
-                        @if (hasAnyPermissions('changePassword'))
-                            <a href="{{ route('changePassword') }}"
-                                class="mt-1 {{ isRouteActive('changePassword*') }} group flex items-center px-2 py-2 text-sm leading-5 font-medium text-gray-600 rounded-md hover:text-gray-800 hover:bg-gray-100 focus:outline-none  transition ease-in-out duration-150">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800  transition ease-in-out duration-150"
-                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                                </svg>
-                                Change Password
-                            </a>
-                        @endif
-                    </div>
-
                 </div>
             </nav>
         </div>

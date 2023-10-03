@@ -69,10 +69,10 @@ class UserController extends Controller
                 'phone' => $request->phone,
                 'image' => $filename,
             ]);
-            notify()->success('user created.');
+            toastr()->success('user created.');
             return redirect()->route('user.list');
         } catch (Throwable $th) {
-            notify()->error($th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back();
         }
     }
@@ -83,7 +83,7 @@ class UserController extends Controller
         if ($user->role_id != 1) {
             return view('backend.user.edit', compact('user'));
         } else {
-            notify()->error('You can not edit super admin.');
+            toastr()->error('You can not edit super admin.');
             return redirect()->back();
         }
 
@@ -101,7 +101,7 @@ class UserController extends Controller
         try {
             $user = User::find($id);
             if (!$user) {
-                notify()->warning('Data not found');
+                toastr()->warning('Data not found');
                 return redirect()->back();
             }
             if ($user->role != 'super_admin') {
@@ -120,17 +120,17 @@ class UserController extends Controller
                         'phone' => $request->phone,
                     ]);
 
-                    notify()->success('user updated...');
+                    toastr()->success('user updated...');
                     return redirect()->route('user.list');
 
                 } else {
-                    notify()->error('You can not edit super admin.');
+                    toastr()->error('You can not edit super admin.');
                     return redirect()->back();
                 }
             }
 
         } catch (Throwable $th) {
-            notify()->error($th->getMessage());
+            toastr()->error($th->getMessage());
             return redirect()->back();
         }
     }
@@ -140,10 +140,10 @@ class UserController extends Controller
         $user = User::find($id);
         if ($user) {
             $user->delete();
-            notify()->success('User blocked');
+            toastr()->success('User blocked');
             return redirect()->back();
         } else {
-            notify()->error('User not found.');
+            toastr()->error('User not found.');
             return redirect()->back();
         }
     }
@@ -153,10 +153,10 @@ class UserController extends Controller
         $user = User::withTrashed()->find($id);
         if ($user) {
             $user->restore();
-            notify()->success('user restored');
+            toastr()->success('user restored');
             return redirect()->back();
         } else {
-            notify()->error('user not found');
+            toastr()->error('user not found');
             return redirect()->back();
         }
     }

@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Http\Controllers\Backend;
 
@@ -18,9 +18,9 @@ class ChangePassword extends Controller
     public function changePasswordProcess(Request $request): RedirectResponse
     {
         $request->validate([
-            'old_password' => ['required',new \App\Rules\ChangePassword()],
+            'old_password' => ['required', new \App\Rules\ChangePassword()],
             'password' => 'required|confirmed|min:5',
-            'password_confirmation' => 'required'
+            'password_confirmation' => 'required',
         ]);
 
         try {
@@ -28,11 +28,11 @@ class ChangePassword extends Controller
                 'password' => bcrypt($request->input('password')),
             ]);
             auth()->logout();
-            notify()->success('Password change successfully');
+            toastr()->success('Password change successfully');
 
             return redirect()->route('login');
         } catch (Throwable $throwable) {
-            notify()->warning($throwable->getMessage());
+            toastr()->warning($throwable->getMessage());
 
             return redirect()->back();
         }

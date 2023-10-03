@@ -66,6 +66,16 @@
                                 Forgot your password?
                             </a>
                         </div>
+
+                    </div>
+
+                    <div class="mt-6 flex items-center justify-between">
+                        <div class="text-sm leading-5">
+                            <a href="{{ route('restaurant.registration') }}"
+                                class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                                Don't have account? Signup
+                            </a>
+                        </div>
                     </div>
 
                     <div class="mt-6">

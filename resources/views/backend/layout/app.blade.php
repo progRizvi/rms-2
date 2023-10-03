@@ -64,8 +64,6 @@
                 <!-- Replace with your content -->
 
                 {{-- Laravel 7 or greater --}}
-                <x:notify-messages />
-                @notifyJs
                 <div class="bg-gray-100">
                     @yield('main')
                 </div>

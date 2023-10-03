@@ -9,7 +9,7 @@ use App\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use notify;
+use toastr;
 
 class RoleController extends Controller
 {
@@ -43,9 +43,9 @@ class RoleController extends Controller
                 'slug' => Str::slug($request->name),
             ]);
             $role->permissions()->sync($request->permission_ids);
-            notify()->success('Role successfully added');
+            toastr()->success('Role successfully added');
             return redirect()->route('role.list');
-        } catch (\Throwable$throwable) {
+        } catch (\Throwable $throwable) {
             return redirect()->back();
         }
     }
@@ -66,7 +66,7 @@ class RoleController extends Controller
         $role = Role::where('id', $id)->first();
 
         if (!$role) {
-            notify()->warning('data not found');
+            toastr()->warning('data not found');
             return redirect()->back();
         }
 
@@ -76,7 +76,7 @@ class RoleController extends Controller
         ]);
         $role->permissions()->sync($request->permission_ids);
 
-        notify()->success('Role successfully updated');
+        toastr()->success('Role successfully updated');
         return redirect()->route('role.list');
     }
 
@@ -86,16 +86,16 @@ class RoleController extends Controller
             $role = Role::where('id', $id)->where('id', '!=', 1)->first();
 
             if (!$role) {
-                notify()->warning('You can not delete this role');
+                toastr()->warning('You can not delete this role');
                 return redirect()->back();
             }
             $role->delete();
-            notify()->success('Role successfully deleted');
+            toastr()->success('Role successfully deleted');
             return redirect()->back();
 
-        } catch (\Throwable$throwable) {
+        } catch (\Throwable $throwable) {
             if ($throwable->getCode() == 23000) {
-                notify()->warning('Sorry ! You cannot delete.');
+                toastr()->warning('Sorry ! You cannot delete.');
             }
             return redirect()->back();
         }

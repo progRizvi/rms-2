@@ -1,11 +1,11 @@
 <?php
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -17,17 +17,20 @@ class LoginController extends Controller
 
     public function loginPost(Request $request): RedirectResponse
     {
+
         try {
-            $user_input = $request->only('email','password');
-            if (Auth::attempt($user_input)) {
-                notify()->success('Login Successful.');
+            $user_input = $request->only('email', 'password');
+            if (Auth::guard("web")->attempt($user_input)) {
+                toastr()->success('Login Successful.');
                 return redirect()->route('admin.dashboard');
+            } else if (Auth::guard("restaurants")->attempt($user_input)) {
+                toastr()->success('Login Successful.');
+                return redirect()->route('restaurant.dashboard');
             }
-            notify()->error('Invalid email or password');
+            toastr()->error('Invalid email or password');
             return redirect()->back();
-        }catch (\Throwable $exception)
-        {
-            notify()->error($exception->getMessage());
+        } catch (\Throwable $exception) {
+            toastr()->error($exception->getMessage());
             return redirect()->back();
         }
 
@@ -36,7 +39,7 @@ class LoginController extends Controller
     public function logout(): RedirectResponse
     {
         auth()->logout();
-        notify()->success('Logout Successful.');
+        toastr()->success('Logout Successful.');
         return redirect()->route('login');
     }
 }

@@ -10,6 +10,8 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\RestaurantController;
+use App\Http\Controllers\RestaurantRegistrationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,6 +37,11 @@ Route::get('/forget/password', [ForgetPasswordController::class, 'forgetPassword
 Route::post('/forget/password/post', [ForgetPasswordController::class, 'forgetPasswordPost'])->name('admin.forget.password.post');
 Route::get('/reset-password/{token}', [ForgetPasswordController::class, 'resetPassword'])->name('admin.reset.password');
 Route::post('/reset-password/{token}', [ForgetPasswordController::class, 'resetPasswordPost'])->name('admin.reset.password.post');
+
+// restaurant registration
+Route::get('/restaurant/registration', [RestaurantRegistrationController::class, 'registration'])->name('restaurant.registration');
+
+Route::post('/restaurant/registration/post', [RestaurantRegistrationController::class, 'doRegistration'])->name('restaurant.registration.post');
 
 Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
@@ -71,5 +78,12 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth']], function () {
 
     Route::resource("categories", CategoryController::class);
     Route::resource("posts", PostController::class);
+
+});
+
+Route::group(["prefix" => "restaurant", "middleware" => ["auth:restaurants"]], function () {
+    Route::get('/', [RestaurantController::class, "dashboard"])->name("restaurant.dashboard");
+    Route::get('/logout', [LoginController::class, 'logout'])->name('restaurant.logout');
+    Route::resource("categories", CategoryController::class);
 
 });

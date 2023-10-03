@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,16 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'created_at' => 'datetime',
     ];
-
-    public function role(): BelongsTo
-    {
-        return $this->belongsTo(Role::class, 'role_id', 'id');
-    }
-
-    public function hasPermission($permission): bool
-    {
-        return $this->role->permissions()->where('slug', $permission)->first() ? true : false;
-    }
 
     public function getImageAttribute($value)
     {

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Module;
-use App\Models\Permission;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 
@@ -40,13 +39,7 @@ class CreatePermission extends Command
      */
     public function handle()
     {
-        $routeArray = getAllRoutesInArray();
-        foreach ($routeArray as $key => $item) {
-            $moduleId = $this->createModule($key);
 
-            $this->createPermissions($moduleId, $item);
-        }
-        $this->info(sprintf('All permission has been created.'));
         return 0;
     }
 
@@ -59,14 +52,5 @@ class CreatePermission extends Command
 
         return $moduleId->id;
     }
-    public function createPermissions($module_id, $permissions)
-    {
-        foreach ($permissions as $key => $permission) {
-            $newPer = Permission::updateOrCreate([
-                'module_id' => $module_id,
-                'name' => $permission['name'],
-                'slug' => $permission['name'],
-            ]);
-        }
-    }
+
 }
