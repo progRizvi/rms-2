@@ -63,13 +63,10 @@
                             x-transition:leave-end="transform opacity-0 scale-95"
                             class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg md:w-48">
                             <div class="py-2 bg-white text-blue-800 text-sm rounded-sm border border-main-color shadow-sm">
-                                <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                    href="#">Settings</a>
-                                <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                    href="#">Help</a>
+
                                 <div class="border-b"></div>
                                 <a class="block px-4 py-2 mt-2 text-sm bg-white md:mt-0 focus:text-gray-900 hover:bg-indigo-100 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                    href="#">Logout</a>
+                                    href="{{ route('restaurant.logout') }}">Logout</a>
                             </div>
                         </div>
                     </div>
@@ -109,12 +106,11 @@
                                     @endif
                                 </span>
                             </li>
-                            {{--
                             <li class="flex items-center py-3">
                                 <span>Member since</span>
-                                <span class="ml-auto">Nov 07, 2016</span>
+                                <span
+                                    class="ml-auto">{{ \Carbon\Carbon::now()->parse(auth('restaurants')->user()->creted_at)->format('d F,Y') }}</span>
                             </li>
-                             --}}
                         </ul>
                     </div>
                     <!-- End of profile card -->
@@ -162,7 +158,6 @@
                     <!-- End of friends card -->
                 </div>
                 <!-- Right Side -->
-                {{--
                 <div class="w-full md:w-9/12 mx-2 h-64">
                     <!-- Profile tab -->
                     <!-- About Section -->
@@ -180,29 +175,21 @@
                         <div class="text-gray-700">
                             <div class="grid md:grid-cols-2 text-sm">
                                 <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">First Name</div>
-                                    <div class="px-4 py-2">Jane</div>
+                                    <div class="px-4 py-2 font-semibold">Company Name</div>
+                                    <div class="px-4 py-2">{{ auth('restaurants')->user()->restaurant_name }}</div>
                                 </div>
-                                <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Last Name</div>
-                                    <div class="px-4 py-2">Doe</div>
-                                </div>
-                                <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Gender</div>
-                                    <div class="px-4 py-2">Female</div>
-                                </div>
+
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Contact No.</div>
-                                    <div class="px-4 py-2">+11 998001001</div>
+                                    <div class="px-4 py-2">{{ auth('restaurants')->user()->phone }}</div>
                                 </div>
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Current Address</div>
-                                    <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
+                                    <div class="px-4 py-2">{{ auth('restaurants')->user()->address }},
+                                        {{ auth('restaurants')->user()->city }},
+                                        {{ auth('restaurants')->user()->zip_code }}</div>
                                 </div>
-                                <div class="grid grid-cols-2">
-                                    <div class="px-4 py-2 font-semibold">Permanant Address</div>
-                                    <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
-                                </div>
+
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Email.</div>
                                     <div class="px-4 py-2">
@@ -224,6 +211,7 @@
                     <div class="my-4"></div>
 
                     <!-- Experience and education -->
+                    {{--
                     <div class="bg-white p-3 shadow-sm rounded-sm">
 
                         <div class="grid grid-cols-2">
@@ -284,9 +272,9 @@
                             </div>
                         </div>
                     </div>
+                     --}}
 
                 </div>
-                 --}}
             </div>
         </div>
     </div>
