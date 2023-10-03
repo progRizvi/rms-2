@@ -17,11 +17,11 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check() && Auth::user()->role_id == 1) {
+        if (Auth::user()->role_id == 1) {
             return $next($request);
         } else {
-            toastr()->error('Admin ? 🙄', 'You are not Admin 😡');
-            return redirect()->route('login');
+            toastr()->error('Admin ?', 'You are not Authorized');
+            return redirect()->back();
         }
 
     }

@@ -38,7 +38,7 @@ Route::get('/restaurant/registration', [RestaurantRegistrationController::class,
 
 Route::post('/restaurant/registration/post', [RestaurantRegistrationController::class, 'doRegistration'])->name('restaurant.registration.post');
 
-Route::group(["prefix" => "admin", 'middleware' => ['auth', "check.admin"]], function () {
+Route::prefix("admin")->middleware(['auth:web', "check.admin"])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -74,14 +74,12 @@ Route::group(["prefix" => "admin", 'middleware' => ['auth', "check.admin"]], fun
         Route::post('/update/{id}', [RoleController::class, 'update'])->name('role.update');
         Route::get('/delete/{id}', [RoleController::class, 'delete'])->name('role.delete');
     });
-
-    Route::resource("categories", CategoryController::class);
-
 });
 
-Route::group(["prefix" => "restaurant", "middleware" => ["auth:restaurants", "check.restaurant"]], function () {
-    Route::get('/', [RestaurantController::class, "dashboard"])->name("restaurant.dashboard");
-    Route::get('/logout', [LoginController::class, 'logout'])->name('restaurant.logout');
+Route::name("restaurant.")->prefix("restaurant")->middleware(["auth:restaurants", "check.restaurant"])->group(function () {
+    Route::get('/', [RestaurantController::class, "dashboard"])->name("dashboard");
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource("categories", CategoryController::class);
-    Route::get("/orders", [OrderController::class, "index"])->name("restaurant.orders");
+    Route::get("/orders", [OrderController::class, "index"])->name("orders");
+    Route::get('/profile', [RestaurantController::class, "profile"])->name("profile");
 });

@@ -2,7 +2,7 @@
 @section('title', 'Create Category')
 @section('main')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg py-16 px-10 m-4">
-        <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('restaurant.categories.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-6">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category

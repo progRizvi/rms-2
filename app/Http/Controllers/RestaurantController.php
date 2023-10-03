@@ -33,4 +33,8 @@ class RestaurantController extends Controller
         toastr()->warning('Restaurant rejected successfully!');
         return redirect()->route('restaurant.list');
     }
+    public function profile()
+    {
+        return view('backend.restaurant.profile');
+    }
 }

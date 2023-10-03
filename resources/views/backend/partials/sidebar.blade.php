@@ -11,7 +11,7 @@
             </a>
             <!-- Sidebar component, swap this element with another sidebar if you like -->
             <nav class="mt-5 flex-1 px-2 bg-white">
-                <a href="{{ auth()->user() ? route('admin.dashboard') : route('restaurant.dashboard') }}"
+                <a href="{{ auth('web')->user() ? route('admin.dashboard') : route('restaurant.dashboard') }}"
                     class=" group flex items-center px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none  transition ease-in-out duration-150">
                     <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800 group-focus:text-gray-100 transition ease-in-out duration-150"
                         stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -20,7 +20,7 @@
                     </svg>
                     Dashboard
                 </a>
-                @if (auth()->user())
+                @if (auth('web')->user())
                     <a href="{{ route('restaurant.list') }}"
                         class=" group flex items-center px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none  transition ease-in-out duration-150">
                         <svg class="mr-3 h-6 w-6 text-gray-600 group-hover:text-gray-800 group-focus:text-gray-100 transition ease-in-out duration-150"
@@ -39,8 +39,10 @@
                             Category
                         </span>
                         <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
-                            <li><a href="{{ route('categories.index') }}" class="block py-2 ml-3">Category List</a></li>
-                            <li><a href="{{ route('categories.create') }}" class="block py-2 ml-3">Add Category</a></li>
+                            <li><a href="{{ route('restaurant.categories.index') }}" class="block py-2 ml-3">Category
+                                    List</a></li>
+                            <li><a href="{{ route('restaurant.categories.create') }}" class="block py-2 ml-3">Add
+                                    Category</a></li>
                         </ul>
                     </div>
 
@@ -48,6 +50,11 @@
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                         <li class="list-none"><a href="{{ route('restaurant.orders') }}" class="block py-2 ml-3">Orders
                                 List</a></li>
+                    </div>
+                    <div
+                        class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                        <li class="list-none"><a href="{{ route('restaurant.profile') }}"
+                                class="block py-2 ml-3">Profile</a></li>
                     </div>
                 @endif
                 <div class="relative">
@@ -70,7 +77,8 @@
         </div>
 
         <div class="flex-shrink-0 flex bg-gray-100 p-4">
-            <a href="{{ route('logout') }}" class="flex-shrink-0 w-full group block" title="logout">
+            <a href="{{ auth('web')->user() ? route('logout') : route('restaurant.logout') }}"
+                class="flex-shrink-0 w-full group block" title="logout">
                 <div class="flex items-center space-x-2">
                     <div class="ml-3 ">
 

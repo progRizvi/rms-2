@@ -30,7 +30,7 @@
 
                     </div>
                 </a>
-                <a href="{{ route('categories.index') }}">
+                <a href="{{ route('restaurant.categories.index') }}">
                     <div class="shadow-md bg-white rounded-lg h-36">
                         <div class="flex items-center justify-between  p-8">
                             <div class="space-y-4">
@@ -89,10 +89,10 @@
 
     </div>
     <!--
-                                <div class="shadow-lg rounded-lg overflow-hidden bg-white mx-4 my-4 w-[50%]">
+                                    <div class="shadow-lg rounded-lg overflow-hidden bg-white mx-4 my-4 w-[50%]">
 
-                                  <canvas class="p-10" id="chartPie"></canvas>
-                                </div> -->
+                                      <canvas class="p-10" id="chartPie"></canvas>
+                                    </div> -->
     {{--   <div class="shadow-lg rounded-lg overflow-hidden bg-white mx-4  my-4"> --}}
 
     {{--  <canvas class="p-10 h-full" id="chartBar"></canvas> --}}
