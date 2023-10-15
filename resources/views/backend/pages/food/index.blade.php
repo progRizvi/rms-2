@@ -12,6 +12,9 @@
                         Category
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Image
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Price
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -37,6 +40,10 @@
                         </th>
                         <td class="px-6 py-4">
                             {{ $food->category->name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <img src="{{ asset('uploads/food/' . $food->image) }}" alt="{{ $food->title }}"
+                                class="w-20 h-20 object-cover">
                         </td>
                         <td class="px-6 py-4">
                             BDT {{ $food->price }}

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('food', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->unsignedBigInteger("restaurant_id");
             $table->text('description');
             $table->decimal('price', 10, 2);
             $table->string('slug');

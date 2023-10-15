@@ -12,7 +12,7 @@ class FoodController extends Controller
 {
     public function index()
     {
-        $foods = Food::with("category")->orderBy("id", "desc")->paginate(10);
+        $foods = Food::with("category")->where("restaurant_id", auth("restaurants")->user()->id)->orderBy("id", "desc")->paginate(10);
         return view("backend.pages.food.index", compact("foods"));
     }
     public function create()
@@ -41,15 +41,15 @@ class FoodController extends Controller
             }
             return redirect()->back();
         }
-        $data = $request->except("_token");
-        if ($request->hasFile("image")) {
-            $file = $request->file("image");
+        $data = $request->except(["_token", "file"]);
+        if ($request->hasFile("file")) {
+            $file = $request->file("file");
             $fileName = time() . "." . $file->getClientOriginalExtension();
             $file->move(public_path("uploads/food"), $fileName);
             $data["image"] = $fileName;
         }
         $data["slug"] = Str::slug($request->title);
-
+        $data["restaurant_id"] = auth("restaurants")->user()->id;
         $foods = Food::create($data);
         if ($foods) {
             toastr()->success("Food created successfully");
@@ -85,15 +85,19 @@ class FoodController extends Controller
             }
             return redirect()->back();
         }
-        $data = $request->except("_token");
+        $data = $request->except(["_token", "file"]);
+
         $food = Food::find($id);
-        if ($request->hasFile("image")) {
-            unlink(public_path("uploads/food/" . $food->image));
-            $file = $request->file("image");
+        if ($request->hasFile("file")) {
+            if ($food->image && file_exists(public_path("uploads/food/" . $food->image))) {
+                unlink(public_path("uploads/food/" . $food->image));
+            }
+            $file = $request->file("file");
             $fileName = time() . "." . $file->getClientOriginalExtension();
             $file->move(public_path("uploads/food"), $fileName);
             $data["image"] = $fileName;
         }
+
         $data["slug"] = Str::slug($request->title);
 
         $food = $food->update($data);
@@ -108,7 +112,7 @@ class FoodController extends Controller
     {
         $food = Food::find($id);
         if ($food) {
-            if (file_exists(public_path("uploads/food/" . $food->image))) {
+            if ($food->image && file_exists(public_path("uploads/food/" . $food->image))) {
                 unlink(public_path("uploads/food/" . $food->image));
             }
             $food->delete();
