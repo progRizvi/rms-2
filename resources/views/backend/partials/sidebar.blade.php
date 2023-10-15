@@ -32,7 +32,7 @@
                     </a>
                 @endif
 
-                @if (auth('restaurants')->user())
+                @if (auth('restaurants')->user() && auth('restaurants')->user()->status == "approved")
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                         <span class="pl-4">
@@ -45,7 +45,20 @@
                                     Category</a></li>
                         </ul>
                     </div>
+                    <div
+                        class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                        <span class="pl-4">
+                            Food
+                        </span>
+                        <ul class="pl-8 bg-gray-100 text-sm subMenu hidden">
+                            <li><a href="{{ route('restaurant.foods.index') }}" class="block py-2 ml-3">Foods
+                                    List</a></li>
+                            <li><a href="{{ route('restaurant.foods.create') }}" class="block py-2 ml-3">Add
+                                    Food</a></li>
+                        </ul>
+                    </div>
 
+                    
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                         <li class="list-none"><a href="{{ route('restaurant.orders') }}" class="block py-2 ml-3">Orders

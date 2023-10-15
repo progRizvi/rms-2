@@ -11,4 +11,5 @@ class OrderController extends Controller
         $orders = Order::orderBy("id", "DESC")->paginate(10);
         return view('backend.pages.orders.index');
     }
+    
 }

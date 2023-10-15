@@ -2,7 +2,7 @@
 @section('title', 'Update Category')
 @section('main')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg py-16 px-10 m-4">
-        <form action="{{ route('categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('restaurant.categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-6">

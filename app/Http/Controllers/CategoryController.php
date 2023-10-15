@@ -67,7 +67,7 @@ class CategoryController extends Controller
         $status = Category::create($data);
         if ($status) {
             toastr()->success("Category created successfully");
-            return redirect()->route("categories.index");
+            return redirect()->route("restaurant.categories.index");
         } else {
             toastr()->error("Something went wrong");
             return redirect()->back();
@@ -123,6 +123,7 @@ class CategoryController extends Controller
         }
         $data = $request->except("_token");
         if ($request->hasFile("image")) {
+            unlink(public_path("uploads/category/" . $category->image));
             $file = $request->file("image");
             $fileName = time() . "." . $file->getClientOriginalExtension();
             $file->move(public_path("uploads/category"), $fileName);
@@ -136,7 +137,7 @@ class CategoryController extends Controller
         $status = $category->update($data);
         if ($status) {
             toastr()->success("Category updated successfully");
-            return redirect()->route("categories.index");
+            return redirect()->route("restaurant.categories.index");
         } else {
             toastr()->error("Something went wrong");
             return redirect()->back();
@@ -152,6 +153,14 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+
+            if ($category->delete()) {
+                unlink(public_path("uploads/category/" . $category->image));
+                toastr()->success("Category deleted successfully");
+                return redirect()->route("restaurant.categories.index");
+            } else {
+                toastr()->error("Something went wrong");
+                return redirect()->back();
+            }
     }
 }

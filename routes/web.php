@@ -8,6 +8,7 @@ use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FoodController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RestaurantRegistrationController;
@@ -80,6 +81,8 @@ Route::name("restaurant.")->prefix("restaurant")->middleware(["auth:restaurants"
     Route::get('/', [RestaurantController::class, "dashboard"])->name("dashboard");
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::resource("categories", CategoryController::class);
+    Route::resource("foods", FoodController::class)->except(["show", "destroy"]);
+    Route::get("/foods/delete/{id}", [FoodController::class, "delete"])->name("foods.delete");
     Route::get("/orders", [OrderController::class, "index"])->name("orders");
     Route::get('/profile', [RestaurantController::class, "profile"])->name("profile");
 });
