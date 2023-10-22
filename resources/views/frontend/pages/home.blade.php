@@ -1,46 +1,56 @@
 @extends('frontend.layout')
 @section('title', 'Home')
 @section('content')
+
+    <style>
+        .fas.fa-heart {
+            cursor: pointer;
+        }
+
+        .fas.fa-heart:hover {
+            color: #FEA116 !important;
+        }
+    </style>
     <!-- Service Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h5>Master Chefs</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
+                @foreach ($restaurants as $key=>$res)
+                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.{{ ($key * 2 ) + 1 }}s">
+                    <div class="rounded pt-3">
+                        <div class="card">
+                            <a href="">
+                                <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
+                                    <img class="img-fluid"
+                                        src="https://mdbootstrap.com/img/Photos/Horizontal/Food/full page/2.jpg"
+                                        alt="Card image cap" />
+                                    <a href="#!">
+                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                                    </a>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="d-flex justify-content-between">
+                                        <div class="d-flex flex-row">
+                                            <div>
+                                                <h5 class="card-title font-weight-bold mb-2"><a href="{{ route('frontend.restaurant.details',$res->slug) }}">{{ $res->restaurant_name }}</a></h5>
+                                                <p class="card-text"></i>{{ $res->food_type }}</p>
+                                            </div>
+                                        </div>
+                                        {{-- 
+                                        <div>
+                                            <i class="fas fa-heart text-muted p-md-1 my-1 me-0" data-mdb-toggle="tooltip"
+                                                data-mdb-placement="top" title="I like it"></i>
+                                        </div>
+                                         --}}
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-utensils text-primary mb-4"></i>
-                            <h5>Quality Food</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-cart-plus text-primary mb-4"></i>
-                            <h5>Online Order</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="service-item rounded pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-headset text-primary mb-4"></i>
-                            <h5>24/7 Service</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
+                @endforeach
+
             </div>
         </div>
     </div>
@@ -135,7 +145,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill" href="#tab-3">
+                        <a class="d-flex align-items-center text-start mx-3 me-0 pb-3" data-bs-toggle="pill"
+                            href="#tab-3">
                             <i class="fa fa-utensils fa-2x text-primary"></i>
                             <div class="ps-3">
                                 <small class="text-body">Lovely</small>

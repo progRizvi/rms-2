@@ -19,10 +19,14 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('restaurant_name');
+            $table->string('slug');
             $table->string('address');
             $table->string('city');
             $table->string('zip_code');
             $table->string('type')->default('restaurant');
+            $table->string('food_type')->nullable();
+            $table->time('open_time')->nullable();
+            $table->time('close_time')->nullable();
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
             $table->string('description')->nullable();

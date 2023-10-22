@@ -25,8 +25,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
  */
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::group(["as"=> "frontend."],function(){
+
+    Route::get("/restaurant/{slug}", [HomeController::class, "restaurantDetails"])->name("restaurant.details");
+});
+
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login/post', [LoginController::class, 'loginPost'])->name('login.post');
 

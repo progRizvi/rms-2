@@ -32,6 +32,7 @@ class RestaurantRegistrationController extends Controller
             $data["password"] = bcrypt($request->password);
             $data["status"] = "inactive";
             $data["type"] = "restaurant";
+            $data["slug"] = strtolower(str_replace(" ", "-", $request->restaurant_name));
             $data["image"] = "default.png";
             $restaurant = Restaurant::create($data);
             if ($restaurant) {
