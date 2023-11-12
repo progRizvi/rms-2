@@ -28,11 +28,13 @@
     <link href="{{ url('/frontend/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
     <link href="{{ url('/frontend/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet" />
 
+
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ url('/frontend/css/bootstrap.min.css') }}" rel="stylesheet">
-
+    @stack('css')
     <!-- Template Stylesheet -->
     <link href="{{ url('/frontend/css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <body>
@@ -58,6 +60,7 @@
         <!-- Footer End -->
 
 
+
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
     </div>
@@ -76,6 +79,10 @@
 
     <!-- Template Javascript -->
     <script src="{{ url('/frontend/js/main.js') }}"></script>
+    <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+
+    {!! Toastr::message() !!}
+    @stack('scripts')
 </body>
 
 </html>

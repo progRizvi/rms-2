@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5a027b3cde9c6ed7d22be09483f6c88",
+    "content-hash": "d49c3584e6dcbb8669e4da83c4ca5e95",
     "packages": [
         {
             "name": "brian2694/laravel-toastr",
-            "version": "5.57",
+            "version": "5.58",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brian2694/laravel-toastr.git",
-                "reference": "1274f58564b9d845dfe82d5aca60b99b6fbb5a71"
+                "reference": "6c7d1c6a959b7042757865d3df0c2f57b912f2c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brian2694/laravel-toastr/zipball/1274f58564b9d845dfe82d5aca60b99b6fbb5a71",
-                "reference": "1274f58564b9d845dfe82d5aca60b99b6fbb5a71",
+                "url": "https://api.github.com/repos/brian2694/laravel-toastr/zipball/6c7d1c6a959b7042757865d3df0c2f57b912f2c1",
+                "reference": "6c7d1c6a959b7042757865d3df0c2f57b912f2c1",
                 "shasum": ""
             },
             "require": {
@@ -64,9 +64,9 @@
             ],
             "support": {
                 "issues": "https://github.com/brian2694/laravel-toastr/issues",
-                "source": "https://github.com/brian2694/laravel-toastr/tree/5.57"
+                "source": "https://github.com/brian2694/laravel-toastr/tree/5.58"
             },
-            "time": "2022-02-21T04:34:55+00:00"
+            "time": "2023-10-31T20:35:36+00:00"
         },
         {
             "name": "brick/math",

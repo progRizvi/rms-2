@@ -32,7 +32,7 @@
                     </a>
                 @endif
 
-                @if (auth('restaurants')->user() && auth('restaurants')->user()->status == "approved")
+                @if (auth('restaurants')->user() && auth('restaurants')->user()->status == 'approved')
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                         <span class="pl-4">
@@ -57,8 +57,6 @@
                                     Food</a></li>
                         </ul>
                     </div>
-
-                    
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                         <li class="list-none"><a href="{{ route('restaurant.orders') }}" class="block py-2 ml-3">Orders

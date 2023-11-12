@@ -7,12 +7,15 @@ use App\Http\Controllers\Backend\LoginController;
 use App\Http\Controllers\Backend\RoleController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RestaurantRegistrationController;
+use App\Http\Controllers\SslCommerzPaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,10 +29,16 @@ use Illuminate\Support\Facades\Route;
 |
  */
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::group(["as"=> "frontend."],function(){
-
-    Route::get("/restaurant/{slug}", [HomeController::class, "restaurantDetails"])->name("restaurant.details");
+Route::group(["as" => "frontend."], function () {
+    Route::get("/restaurant/res/{slug}", [HomeController::class, "restaurantDetails"])->name("restaurant.details");
+    Route::get("front/restaurant/res/food-details", [HomeController::class, "foodDetails"])->name("food.details");
 });
+
+Route::post('register-store', [CustomerController::class, 'store'])->name('register.store');
+
+Route::post('user-customer-login', [CustomerController::class, 'customerDoLogin'])->name('userCustomer.login');
+
+Route::get('user-customer-logout', [CustomerController::class, 'customerLogout'])->name('userCustomer.logout');
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/login/post', [LoginController::class, 'loginPost'])->name('login.post');
@@ -44,6 +53,36 @@ Route::post('/reset-password/{token}', [ForgetPasswordController::class, 'resetP
 Route::get('/restaurant/registration', [RestaurantRegistrationController::class, 'registration'])->name('restaurant.registration');
 
 Route::post('/restaurant/registration/post', [RestaurantRegistrationController::class, 'doRegistration'])->name('restaurant.registration.post');
+
+Route::get('cart', [CartController::class, 'cart'])->name('cart');
+Route::post('add-to-cart/', [CartController::class, 'addToCart'])->name('add.to.cart');
+Route::post('update-cart', [CartController::class, 'update'])->name('update.cart');
+Route::delete('remove-from-cart', [CartController::class, 'remove'])->name('remove.from.cart');
+Route::get("/checkout", [CartController::class, 'checkout'])->name("checkout");
+
+Route::group(['prefix' => 'user', 'middleware' => 'auth:customers'], function () {
+    Route::get('/dashboard', [UserPanelController::class, 'index'])->name('user.dashboard');
+    Route::get('/logout', [CustomerController::class, 'logout'])->name('user.logout');
+    Route::get("/all-booking", [UserPanelController::class, 'allBooking'])->name('user.all.booking');
+    Route::get("/booking/cancel/{id}", [UserBookingController::class, 'cancel'])->name('user.cancel.booking');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('user.profile');
+    Route::get('/profile/edit', [HomeController::class, 'profileEdit'])->name('user.profile.edit');
+    Route::post("/update/profile", [CustomerController::class, 'updateProfile'])->name("user.update.profile");
+    Route::post('/profile/update', [HomeController::class, 'profileUpdate'])->name('user.profile.update');
+    Route::get('/change-password', [HomeController::class, 'changePassword'])->name('user.change.password');
+    Route::post('/change-password', [HomeController::class, 'changePasswordUpdate'])->name('user.change.password.update');
+    Route::get('/booking/{id}', [UserBookingController::class, 'booking'])->name('user.booking');
+    Route::get("/get/package/info", [UserBookingController::class, 'getPackageInfo'])->name('get.package.info');
+
+    Route::post('/pay/', [SslCommerzPaymentController::class, 'index'])->name("pay.now");
+    Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+    Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+    Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+    Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+});
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
 
 Route::prefix("admin")->middleware(['auth:web', "check.admin"])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');

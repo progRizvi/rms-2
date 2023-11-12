@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'restaurants',
         ],
+        'customers' => [
+            'driver' => 'session',
+            'provider' => 'customers',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
         'restaurants' => [
             'driver' => 'eloquent',
             'model' => App\Models\Restaurant::class,
+        ],
+        'customers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\CustomerUser::class,
         ],
 
         // 'users' => [
@@ -104,6 +112,12 @@ return [
         'restaurants' => [
             'provider' => 'restaurants',
             'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'customers' => [
+            'provider' => 'customers',
+            'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
