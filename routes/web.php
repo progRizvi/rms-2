@@ -16,6 +16,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\RestaurantRegistrationController;
 use App\Http\Controllers\SslCommerzPaymentController;
+use App\Http\Controllers\UserBookingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,7 +72,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth:customers'], function ()
     Route::post('/profile/update', [HomeController::class, 'profileUpdate'])->name('user.profile.update');
     Route::get('/change-password', [HomeController::class, 'changePassword'])->name('user.change.password');
     Route::post('/change-password', [HomeController::class, 'changePasswordUpdate'])->name('user.change.password.update');
-    Route::get('/booking/{id}', [UserBookingController::class, 'booking'])->name('user.booking');
+    Route::post('/booking/table', [UserBookingController::class, 'booking'])->name('user.booking');
     Route::get("/get/package/info", [UserBookingController::class, 'getPackageInfo'])->name('get.package.info');
 
     Route::post('/pay/', [SslCommerzPaymentController::class, 'index'])->name("pay.now");

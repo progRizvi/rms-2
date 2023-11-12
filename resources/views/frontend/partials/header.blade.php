@@ -112,49 +112,70 @@
 
                         <h5 class="section-title ff-secondary text-start text-primary fw-normal">Reservation</h5>
                         <h1 class="text-white mb-4">Book A Table Online</h1>
-                        <form>
+                        <form action="{{ route('user.booking') }}" method="post">
+                            @csrf
                             <input type="hidden" name="slug" value="{{ request()->slug }}">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input type="text" class="form-control" id="name"
-                                            placeholder="Your Name">
+                                            placeholder="Your Name" name="name">
                                         <label for="name">Your Name</label>
                                     </div>
+                                    @error('name')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email"
-                                            placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <input type="tel" class="form-control" id="phone"
+                                            placeholder="Your phone" name="phone">
+                                        <label for="phone">Your Phone</label>
                                     </div>
+                                    @error('phone')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating date" id="date3" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input"
+                                        <input type="datetime" class="form-control datetimepicker-input"
                                             id="datetime" placeholder="Date & Time" data-target="#date3"
-                                            data-toggle="datetimepicker" />
+                                            data-toggle="datetimepicker" name="date_time" value="{{ now() }}" />
                                         <label for="datetime">Date & Time</label>
                                     </div>
+                                    @error('date_time')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <select class="form-select" id="select1">
+                                        <select class="form-select" id="select1"name="persons">
                                             <option value="1">People 1</option>
                                             <option value="2">People 2</option>
                                             <option value="3">People 3</option>
+                                            <option value="3">People 4</option>
+                                            <option value="3">People 5</option>
                                         </select>
                                         <label for="select1">No Of People</label>
                                     </div>
+                                    @error('persons')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Special Request" id="message" style="height: 100px"></textarea>
+                                        <textarea class="form-control" placeholder="Special Request" id="message" style="height: 100px" name="message"></textarea>
                                         <label for="message">Special Request</label>
                                     </div>
+                                    @error('message')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Book Now</button>
+                                    <button class="btn btn-primary w-100 py-3 booking"
+                                        @auth('customers')
+                                 type="submit" @else  type="button" @endauth>Book
+                                        Now</button>
                                 </div>
                             </div>
                         </form>
@@ -205,3 +226,15 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    @if (!Auth::guard('customers')->check())
+        <script>
+            $(document).ready(function() {
+                $(".booking").click(function() {
+                    toastr.error("Please login first")
+                })
+            });
+        </script>
+    @endif
+@endpush

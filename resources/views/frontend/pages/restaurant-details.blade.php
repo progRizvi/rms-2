@@ -2,7 +2,6 @@
 @section('title', 'Restaurant Details')
 
 @section('content')
-    {{-- @dd($foods) --}}
     <div class="row">
         @if (isset($foods))
             <div class="col-lg-8 col-sm-10 mx-sm-auto mx-lg-2">
