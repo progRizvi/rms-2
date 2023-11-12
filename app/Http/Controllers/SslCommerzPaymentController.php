@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\Models\Food;
 use App\Models\Order;
 use App\Models\OrderDetails;
 use Illuminate\Http\Request;
@@ -77,6 +78,9 @@ class SslCommerzPaymentController extends Controller
 
             $carts = session()->get('cart');
             foreach ($carts as $key => $cart) {
+                $food = Food::find($key);
+                $order->restaurant_id = $food->restaurant_id;
+                $order->save();
                 OrderDetails::create([
                     "order_id" => $order->id,
                     "food_id" => $key,
@@ -196,7 +200,7 @@ class SslCommerzPaymentController extends Controller
                  */
                 $booking_details = DB::table('orders')
                     ->where('transaction_id', $tran_id)
-                    ->update(['payment_status' => 'Processing']);
+                    ->update(['payment_status' => 'Complete']);
 
                 echo "<br >Transaction is successfully Completed";
             }

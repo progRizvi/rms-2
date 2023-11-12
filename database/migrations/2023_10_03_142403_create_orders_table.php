@@ -22,8 +22,7 @@ return new class extends Migration
             $table->integer("total_quantity")->nullable();
             $table->string("phone")->nullable();
             $table->string("transaction_id")->nullable();
-            $table->string("payment_status")->nullable();
-            $table->string("order_status")->nullable();
+            $table->string("order_status")->default("pending");
             $table->string("payment_status")->nullable();
             $table->string("currency")->nullable();
             $table->string("delivery_address")->nullable();

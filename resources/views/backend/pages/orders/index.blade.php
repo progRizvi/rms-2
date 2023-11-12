@@ -1,6 +1,6 @@
 @extends('backend.layout.app')
 
-@section('title', 'Post List')
+@section('title', 'Orders List')
 @section('main')
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg my-16 mx-10">
@@ -8,7 +8,10 @@
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        OrderId
+                        sl
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Order Id
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Customer Name
@@ -18,6 +21,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Customer Address
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Payment Status
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Order Status
@@ -32,36 +38,41 @@
             </thead>
             <tbody>
                 @foreach ($orders as $order)
+                    {{-- @dd($order) --}}
                     <tr
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            {{ $order->id }}
+                            {{ $orders->firstItem() + $loop->index }}
                         </th>
                         <td class="px-6 py-4">
-                            Customer Name
+                            {{ $order->transaction_id }}
                         </td>
                         <td class="px-6 py-4">
-                            Customer Phone
+                            {{ $order->name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $order->address }}
+                            {{ $order->phone }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $order->status }}
+                            {{ $order->delivery_address }}
                         </td>
                         <td class="px-6 py-4">
-                            {{ $order->created_at }}
+                            {{ $order->payment_status }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $order->order_status }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ \Carbon\Carbon::parse($order->created_at)->format('d M Y') }}
                         </td>
 
                         <td class="px-6 py-4 text-right">
-                            <a href="{{ route('posts.edit', $post->id) }}"
-                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline mr-4">Edit</a>
-                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" class="inline-block">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                    class="font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-                            </form>
+                            <a href="{{ route('restaurant.order.show', $order->id) }}"
+                                class="text-indigo-600 hover:text-indigo-900">View</a>
+                            @if ($order->order_status == 'pending')
+                                <a href="{{ route('restaurant.order.delivered', $order->id) }}"
+                                    class="text-green-600 hover:text-greeen-900">Delivered</a>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -69,7 +80,7 @@
         </table>
 
         <div class="my-4 px-6">
-            {{ $posts->links('pagination::custom') }}
+            {{ $orders->links('pagination::custom') }}
         </div>
     </div>
 

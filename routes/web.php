@@ -129,5 +129,8 @@ Route::name("restaurant.")->prefix("restaurant")->middleware(["auth:restaurants"
     Route::resource("foods", FoodController::class)->except(["show", "destroy"]);
     Route::get("/foods/delete/{id}", [FoodController::class, "delete"])->name("foods.delete");
     Route::get("/orders", [OrderController::class, "index"])->name("orders");
+    Route::get("/orders/show/{id}", [OrderController::class, "show"])->name("order.show");
+    Route::get("/orders/delivered/{id}", [OrderController::class, "status"])->name("order.delivered");
+
     Route::get('/profile', [RestaurantController::class, "profile"])->name("profile");
 });
