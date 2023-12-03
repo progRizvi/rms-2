@@ -64,6 +64,11 @@
                     </div>
                     <div
                         class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
+                        <li class="list-none"><a href="{{ route('restaurant.bookings') }}" class="block py-2 ml-3">Bookings
+                                List</a></li>
+                    </div>
+                    <div
+                        class="sub-btn px-2 py-2 text-sm leading-5 hover:bg-gray-100 font-medium text-gray-600 rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer">
                         <li class="list-none"><a href="{{ route('restaurant.profile') }}"
                                 class="block py-2 ml-3">Profile</a></li>
                     </div>
